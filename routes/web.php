@@ -1,22 +1,23 @@
 <?php
 
+use App\Http\Controllers\Suplier\DashboardController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
-    return view('welcome');
+    return view("auth.login");
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware('auth', 'checkroll:suplier')->group(function () {
+    Route::get('/dashboard-suplier', [DashboardController::class, 'index_suplier'])->name('index_suplier');
+});
+
+Route::middleware('auth', 'checkroll:admin')->group(function () {
+    Route::get('/dashboard-suplier', [DashboardController::class, 'index_suplier'])->name('index_suplier');
+});
+
+Route::middleware('auth', 'checkroll:gudang')->group(function () {
+    Route::get('/dashboard-suplier', [DashboardController::class, 'index_suplier'])->name('index_suplier');
+});
