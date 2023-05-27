@@ -77,6 +77,13 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-xxl-6 col-lg-12 col-md-6">
+                                    <div class="text-start text-md-end text-lg-start text-xxl-end mb-30">
+                                        <a href="{{ route('register') }}" class="hover-underline">
+                                            Apakah anda belum mempunyai akun?
+                                        </a>
+                                    </div>
+                                </div>
                                 <div class="col-12">
                                     <div class="button-group d-flex justify-content-center flex-wrap">
                                         <button class="main-btn primary-btn btn-hover w-100 text-center">
