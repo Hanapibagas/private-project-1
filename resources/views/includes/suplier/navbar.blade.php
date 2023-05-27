@@ -28,7 +28,13 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profile">
                             <li>
-                                <a href="#0"> <i class="lni lni-exit"></i> Sign Out </a>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit">
+                                        <i class="lni lni-exit"></i>
+                                        Logout
+                                    </button>
+                                </form>
                             </li>
                         </ul>
                     </div>
