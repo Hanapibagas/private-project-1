@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardAdminController;
+use App\Http\Controllers\Gudang\DashboardGudangController;
 use App\Http\Controllers\Suplier\DashboardController;
 use App\Http\Controllers\Suplier\ProductController;
 use Illuminate\Support\Facades\Auth;
@@ -24,9 +25,9 @@ Route::middleware('auth', 'checkroll:suplier')->group(function () {
 });
 
 Route::middleware('auth', 'checkroll:admin')->group(function () {
-    Route::get('/dashboard-admin', [DashboardAdminController::class, 'index_suplier'])->name('index_suplier');
+    Route::get('/dashboard-admin', [DashboardAdminController::class, 'dashboard_admin'])->name('dashboard_admin');
 });
 
-// Route::middleware('auth', 'checkroll:gudang')->group(function () {
-//     Route::get('/dashboard-gudang', [DashboardController::class, 'index_suplier'])->name('index_suplier');
-// });
+Route::middleware('auth', 'checkroll:gudang')->group(function () {
+    Route::get('/dashboard-gudang', [DashboardGudangController::class, 'dashboard_gudang'])->name('dashboard_gudang');
+});

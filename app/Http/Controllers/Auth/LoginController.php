@@ -18,6 +18,14 @@ class LoginController extends Controller
                 $this->redirectTo = '/dashboard-suplier';
                 return $this->redirectTo;
                 break;
+            case "admin";
+                $this->redirectTo = '/dashboard-admin';
+                return $this->redirectTo;
+                break;
+            case "gudang";
+                $this->redirectTo = '/dashboard-gudang';
+                return $this->redirectTo;
+                break;
         }
     }
 

@@ -17,7 +17,7 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
 
-    @include('includes.admin.style')
+    @include('includes.gudang.style')
 
     @stack('cs')
 
@@ -25,13 +25,13 @@
 
 <body>
 
-    @include('includes.admin.sidebar')
+    @include('includes.gudang.sidebar')
 
     <div class="overlay"></div>
 
     <main class="main-wrapper">
 
-        @include('includes.admin.navbar')
+        @include('includes.gudang.navbar')
 
         <section class="section">
 
@@ -39,11 +39,11 @@
 
         </section>
 
-        @include('includes.admin.footer')
+        @include('includes.gudang.footer')
 
     </main>
 
-    @include('includes.admin.script')
+    @include('includes.gudang.script')
 
     @stack('js')
 
