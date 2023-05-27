@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardAdminController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Gudang\DashboardGudangController;
 use App\Http\Controllers\Suplier\DashboardController;
 use App\Http\Controllers\Suplier\ProductController;
@@ -25,7 +26,16 @@ Route::middleware('auth', 'checkroll:suplier')->group(function () {
 });
 
 Route::middleware('auth', 'checkroll:admin')->group(function () {
-    Route::get('/dashboard-admin', [DashboardAdminController::class, 'dashboard_admin'])->name('dashboard_admin');
+    Route::get('/dashboard-admin', [DashboardAdminController::class, 'dashboard_admin'])->name('dashboard-admin');
+
+    Route::controller(AdminProductController::class)->group(function(){
+        Route::get('/product',  'indexProduct')->name('index-product');
+        Route::get('/product/create',  'createProduct')->name('create-product');
+        Route::post('/product/store',  'storeProduct')->name('store-product');
+        Route::get('/product/edit/{id}',  'editProduct')->name('edit-product');
+        Route::put('/product/update/{id}',  'updateProduct')->name('update-product');
+        Route::delete('/product/delete{id}',  'deleteProduct')->name('delete-product');
+    });
 });
 
 Route::middleware('auth', 'checkroll:gudang')->group(function () {
