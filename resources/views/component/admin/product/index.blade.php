@@ -124,7 +124,7 @@
                             };
                             $.ajax({
                                 type: "DELETE",
-                                url: 'product-suplier/delete/' + deleteid,
+                                url: '/product/delete/' + deleteid,
                                 data: data,
                                 success: function(response) {
                                     swal(response.status, {

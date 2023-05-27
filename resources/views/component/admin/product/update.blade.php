@@ -19,7 +19,7 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="{{ route('index_product_suplier') }}">
+                                        <a href="{{ route('index-product') }}">
                                             <i>
                                                 <- Kembali </i>
                                         </a>
@@ -35,7 +35,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card-style mb-30">
-                            <form action="{{ route('update_product_suplier', $suplier->id) }}" method="POST"
+                            <form action="{{ route('update-product', $product->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
@@ -43,21 +43,21 @@
                                     <div class="col-12">
                                         <div class="input-style-1">
                                             <label>Nama</label>
-                                            <input type="text" value="{{ $suplier->nama }}" name="nama"
+                                            <input type="text" value="{{ $product->nama }}" name="nama"
                                                 placeholder="Masukkan Judul" />
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="input-style-1">
                                             <label>Harga</label>
-                                            <input type="text" value="{{ $suplier->harga }}" name="harga"
+                                            <input type="text" value="{{ $product->harga }}" name="harga"
                                                 placeholder="Masukkan Judul" />
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="input-style-1">
                                             <label>Satuan</label>
-                                            <input type="text" value="{{ $suplier->satuan }}" name="satuan"
+                                            <input type="text" value="{{ $product->satuan }}" name="satuan"
                                                 placeholder="Masukkan Judul" />
                                         </div>
                                     </div>
@@ -65,9 +65,9 @@
                                         <div class="input-style-1">
                                             <label>Gambar</label>
                                             <small>Pilih gambar jika ingin mengubah</small>
-                                            <input name="foto" type="file" value="{{ $suplier->foto }}">
-                                            @if ($suplier->foto)
-                                                <img src="{{ Storage::url($suplier->foto) }}" alt=""
+                                            <input name="foto" type="file" value="{{ $product->foto }}">
+                                            @if ($product->foto)
+                                                <img src="{{ Storage::url($product->foto) }}" alt=""
                                                     style="width: 150px; margin-top: 10px" class="img-thumbnail">
                                             @else
                                                 <p>Gambar Tidak Sedia</p>

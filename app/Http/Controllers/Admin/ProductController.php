@@ -29,14 +29,14 @@ class ProductController extends Controller
         }
         $validatedData['foto'] = $file;
         Product::create($validatedData);
-        dd($validatedData);
+        // dd($validatedData);
         return redirect()->route('index-product')->with('status', 'Selamat data product berhasil ditambahkan');
     }
 
     public function editProduct($id)
     {
         $product = Product::where('id', $id)->first();
-        return view('component.suplier.product.update', compact('product'));
+        return view('component.admin.product.update', compact('product'));
     }
 
     public function updateProduct(ProductFormRequest $request, $id)
@@ -58,7 +58,10 @@ class ProductController extends Controller
     public function deleteProduct($id)
     {
         $product = Product::where('id', $id)->first();
+        if ($product->foto && file_exists(storage_path('app/public/' . $product->foto))) {
+            Storage::delete('public/' . $product->foto);
+        }
         $product->delete();
-        return redirect()->route('index-product')->with('status', 'Selamat data product berhasil didelete');
+        return response()->json(['status' => 'Selamat data infografis berhasil dihapus']);
     }
 }
