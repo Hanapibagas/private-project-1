@@ -1,8 +1,8 @@
 <div class="sidebar-nav-wrapper">
     <div class="navbar-logo">
         <a href="">
-            <img src="{{ asset('assets/frontend/img/logo.png') }}" style="width: 30px" alt="logo" />
-            <h3 style="font-size: 18px; margin-top: 10px">Dashboard Ketenagakerjaan {{ Auth::user()->role }}</h3>
+            <img src="{{ asset('assets/images/favicon.svg') }}" style="width: 30px" alt="logo" />
+            <h3 style="font-size: 18px; margin-top: 10px">Dashboard {{ Auth::user()->role }}</h3>
         </a>
     </div>
     <nav class="sidebar-nav">
@@ -24,8 +24,8 @@
                 <hr />
             </span>
             <li
-                class="nav-item {{ request()->is('product-suplier') || request()->is('product-suplier/create') || request()->is('product-suplier/edit/*') ? 'active' : '' }}">
-                <a href="{{ route('index_product_suplier') }}">
+                class="nav-item {{ request()->is('bahan-baku-suplier') || request()->is('bahan-baku-suplier/create') || request()->is('bahan-baku-suplier/edit/*') ? 'active' : '' }}">
+                <a href="{{ route('index_bahan_baku_suplier') }}">
                     <span class="icon">
                         <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -33,7 +33,7 @@
                         </svg>
                     </span>
                     <span class="text">
-                        Product
+                        Bahan baku
                     </span>
                 </a>
             </li>

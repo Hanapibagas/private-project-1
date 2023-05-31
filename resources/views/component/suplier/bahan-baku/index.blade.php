@@ -1,7 +1,7 @@
 @extends('layouts.suplier-app')
 
 @section('title')
-Product
+Bahan Baku
 @endsection
 
 @section('content')
@@ -21,7 +21,7 @@ Product
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div class="title mb-30">
-                        <h2>Data Product</h2>
+                        <h2>Data Bahan Baku</h2>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -29,7 +29,7 @@ Product
                         <nav aria-label="breadcrumb">
                             <ul class="buttons-group">
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('create_product_suplier') }}"
+                                    <a href="{{ route('create_bahan_baku_suplier') }}"
                                         class="main-btn success-btn rounded-md btn-hover">+ Tambah Data</a>
                                 </li>
                             </ul>
@@ -49,27 +49,29 @@ Product
                                         <th>Nama</th>
                                         <th>Harga</th>
                                         <th>Satuan</th>
+                                        <th>Stok</th>
                                         <th>Gambar</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ( $suplier as $data )
+                                    @foreach ( $bahanbaku as $data )
                                     <tr>
                                         <td>{{ $data->nama }}</td>
                                         <td>{{ $data->harga }}</td>
                                         <td>{{ $data->satuan }}</td>
+                                        <td>{{ $data->stok }}</td>
                                         <td>
-                                            <img src="{{ Storage::url($data->foto) }}" alt="" style="width: 150px"
+                                            <img src="{{ Storage::url($data->gambar) }}" alt="" style="width: 150px"
                                                 class="img-thumbnail">
                                         </td>
                                         <td>
-                                            <a href="{{ route('edit_product_suplier', $data->id) }}"
+                                            <a href="{{ route('edit_bahan_baku_suplier', $data->id) }}"
                                                 class="btn btn-primary">
                                                 <i class="lni lni-pencil" style="color: whitesmoke"></i>
                                             </a>
                                             <input type="hidden" class="delete_id" value="{{ $data->id }}">
-                                            <form action="{{ route('destroy_prodcut_suplier', $data->id) }}"
+                                            <form action="{{ route('destroy_bahan_baku_suplier', $data->id) }}"
                                                 method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
@@ -124,7 +126,7 @@ Product
                         };
                         $.ajax({
                             type: "DELETE",
-                            url: 'product-suplier/delete/' + deleteid,
+                            url: 'bahan-baku-suplier/delete/' + deleteid,
                             data: data,
                             success: function (response) {
                                 swal(response.status, {
