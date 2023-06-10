@@ -36,6 +36,10 @@ Route::middleware('auth', 'checkroll:admin')->group(function () {
         Route::put('/product/update/{id}',  'updateProduct')->name('update-product');
         Route::delete('/product/delete{id}',  'deleteProduct')->name('delete-product');
     });
+
+    Route::controller(BahanBakuController::class)->group(function () {
+        Route::get('/bahan-baku',  'getBahanBaku')->name('get.bahanbaku');
+    });
 });
 
 Route::middleware('auth', 'checkroll:gudang')->group(function () {
