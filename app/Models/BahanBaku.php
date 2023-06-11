@@ -16,4 +16,13 @@ class BahanBaku extends Model
         'stok',
         'user_id',
     ];
+
+    public function carts(){
+        return $this->hasMany(Cart::class, 'bahanbaku_id');
+    }
+
+    public function users(){
+        return $this->belongsto(User::class, 'user_id');
+    }
+
 }

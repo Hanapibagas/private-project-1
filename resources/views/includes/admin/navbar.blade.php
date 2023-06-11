@@ -11,7 +11,19 @@
                 </div>
             </div>
             <div class="col-lg-7 col-md-7 col-6">
-                <div class="header-right">
+                <div class="header-right  d-flex align-items-center">
+                    @php
+                        use App\Models\Cart;
+                        $total_cart = Cart::count();
+                    @endphp
+                    @if (Auth::user()->role == 'admin')
+                        <a href="{{ route('get.cart') }}">
+                            <div class="btn btn-success">
+                                <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
+                                <span class="badge bg-danger">{{ $total_cart }}</span>
+                            </div>
+                        </a>
+                    @endif
                     <div class="profile-box ml-15">
                         <button class="dropdown-toggle bg-transparent border-0" type="button" id="profile"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -19,7 +31,8 @@
                                 <div class="info">
                                     <h6>John Doe</h6>
                                     <div class="image">
-                                        <img src="{{ asset('assets/images/profile/profile-image.png') }}" alt="" />
+                                        <img src="{{ asset('assets/images/profile/profile-image.png') }}"
+                                            alt="" />
                                         <span class="status"></span>
                                     </div>
                                 </div>

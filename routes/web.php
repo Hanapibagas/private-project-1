@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardAdminController;
-use App\Http\Controllers\Admin\ProductController as AdminProductController;
-use App\Http\Controllers\Gudang\DashboardGudangController;
-use App\Http\Controllers\Suplier\BahanBakuController;
-use App\Http\Controllers\Suplier\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\TransaksiController;
+use App\Http\Controllers\Suplier\BahanBakuController;
+use App\Http\Controllers\Suplier\DashboardController;
+use App\Http\Controllers\Admin\DashboardAdminController;
+use App\Http\Controllers\Gudang\DashboardGudangController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
 
 Route::get('/', function () {
     return view("auth.login");
@@ -37,8 +38,15 @@ Route::middleware('auth', 'checkroll:admin')->group(function () {
         Route::delete('/product/delete{id}',  'deleteProduct')->name('delete-product');
     });
 
-    Route::controller(BahanBakuController::class)->group(function () {
-        Route::get('/bahan-baku',  'getBahanBaku')->name('get.bahanbaku');
+    Route::controller(TransaksiController::class)->group(function () {
+        //get bahan baku
+        Route::get('/list-bahan-baku',  'getBahanBaku')->name('get.bahanbaku');
+        //cart
+        Route::post('/store-cart',  'storeCart')->name('store.cart');
+        Route::get('/get-cart',  'getCart')->name('get.cart');
+        Route::get('/delete-cart/{id}',  'deleteCart')->name('delete.cart');
+        //checkout
+        Route::post('/checkout',  'checkout')->name('checkout');
     });
 });
 

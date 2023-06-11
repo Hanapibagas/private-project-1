@@ -6,3 +6,4 @@
 <link rel="stylesheet" href="{{ asset('assets/css/morris.css') }} " />
 <link rel="stylesheet" href="{{ asset('assets/css/datatable.css') }} " />
 <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
