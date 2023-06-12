@@ -72,7 +72,6 @@ class TransaksiController extends Controller
             }
         }
 
-
         $data_qty = [];
         foreach ($selectedItems_qty as $bahanBakuId => $quantity) {
             $bahanBaku = BahanBaku::find($bahanBakuId);
