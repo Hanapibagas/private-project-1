@@ -135,14 +135,18 @@
                         @endphp
                         <input type="hidden" id="subtotal" name="subtotal[{{ $list->bahanBaku->id }}]"
                             value="{{ $subtotal }}">
+                        <input type="hidden" id="cart_id" name="cart_id[{{ $list->bahanBaku->id }}]"
+                            value="{{ $list->id }}">
                     @empty
-                        <div class="message">
-                            <h3 class="text-center text-danger">Tidak ada Item</h3>
+                        <div class="message p-5">
+                            <h3 class="text-center text-danger">Tidak ada item dalam keranjang</h3>
                         </div>
                     @endforelse
-                    <div class="cart-total">Total: Rp. {{ $total }}</div>
-                    <button type="submit" class="btn btn-success" id="checkout-button" style="width:100%"
-                        disabled>checkout</button>
+                    @if ($data->count() > 1)
+                        <div class="cart-total">Total: Rp. {{ $total }}</div>
+                        <button type="submit" class="btn btn-success" id="checkout-button" style="width:100%"
+                            disabled>checkout</button>
+                    @endif
                 </form>
             </div>
         </div>

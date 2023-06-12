@@ -14,4 +14,12 @@ class DetailTransaksi extends Model
         'bahanbaku_id',
         'jumlah',
     ];
+
+    public function transaksi(){
+        return $this->belongsto(Transaksi::class, 'transaksi_id');
+    }
+
+    public function bahanBaku(){
+        return $this->belongsTo(BahanBaku::class, 'bahanbaku_id');
+    }
 }

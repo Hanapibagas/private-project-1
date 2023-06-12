@@ -39,6 +39,8 @@ Route::middleware('auth', 'checkroll:admin')->group(function () {
     });
 
     Route::controller(TransaksiController::class)->group(function () {
+        //get list transaksi
+        Route::get('/list-transaksi',  'getTransaksi')->name('get.transaksi');
         //get bahan baku
         Route::get('/list-bahan-baku',  'getBahanBaku')->name('get.bahanbaku');
         //cart

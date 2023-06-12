@@ -53,8 +53,8 @@
                 </a>
             </li>
             <li
-                class="nav-item {{ request()->is('product') || request()->is('product/create') || request()->is('product/edit/*') ? 'active' : '' }}">
-                <a href="{{ route('index-product') }}">
+                class="nav-item {{ request()->is('list-transaksi') || request()->is('transaksi-pembayaran') ? 'active' : '' }}">
+                <a href="{{ route('get.transaksi') }}">
                     <span class="icon">
                         <svg width="18" height="20" viewBox="0 0 18 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">

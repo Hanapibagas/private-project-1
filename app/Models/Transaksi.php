@@ -11,10 +11,14 @@ class Transaksi extends Model
 
     protected $fillable = [
         'tgl_pemesanan',
-        'status', 
+        'status',
         'jumlah_bayar',
         'bukti_bayar',
         'keterangan',
         'total',
     ];
+
+    public function detailTransaksi(){
+        return $this->hasMany(DetailTransaksi::class,'transaksi_id');
+    }
 }
