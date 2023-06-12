@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('gambar');
-            $table->integer('satuan');
+            $table->string('satuan');
             $table->integer('harga');
             $table->integer('stok');
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
