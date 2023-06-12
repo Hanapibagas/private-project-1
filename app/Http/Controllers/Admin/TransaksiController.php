@@ -57,75 +57,92 @@ class TransaksiController extends Controller
         $subtotals = $request->input('subtotal');
         $carts = $request->input('cart_id');
 
-        $selectedItems_qty = [];
-        $selectedItems_sub = [];
-        $selectedItems_cart = [];
+        dd($total);
+
+<<<<<<< HEAD
+        $selectedItems = [];
         foreach ($bahanBakuIds as $bahanBakuId) {
             if (isset($quantities[$bahanBakuId])) {
                 $selectedItems_qty[$bahanBakuId] = $quantities[$bahanBakuId];
             }
-            if (isset($subtotals[$bahanBakuId])) {
-                $selectedItems_sub[$bahanBakuId] = $subtotals[$bahanBakuId];
-            }
-            if (isset($carts[$bahanBakuId])) {
-                $selectedItems_cart[$bahanBakuId] = $carts[$bahanBakuId];
-            }
+=======
+    $bahanBakuIds = $request->input('bahan_baku');
+    $quantities = $request->input('quantity');
+    $subtotals = $request->input('subtotal');
+
+    $selectedItems_qty = [];
+    $selectedItems_sub = [];
+    foreach ($bahanBakuIds as $bahanBakuId) {
+        if (isset($quantities[$bahanBakuId])) {
+            $selectedItems_qty[$bahanBakuId] = $quantities[$bahanBakuId];
+        }
+        if (isset($subtotals[$bahanBakuId])) {
+            $selectedItems_sub[$bahanBakuId] = $subtotals[$bahanBakuId];
+>>>>>>> e3e05f7ae74cbe2470e0e6b98cc049316c247229
         }
 
-        $data_qty = [];
-        foreach ($selectedItems_qty as $bahanBakuId => $quantity) {
+<<<<<<< HEAD
+        $data = [];
+        foreach ($selectedItems as $bahanBakuId => $quantity) {
             $bahanBaku = BahanBaku::find($bahanBakuId);
-            $data_qty[] = ['bahan_baku' => $bahanBakuId , 'quantity' => $quantity];
+            $data[] = ['bahan_baku' => $bahanBakuId, 'quantity' => $quantity];
         }
-
-        $data_sub = [];
-        foreach ($selectedItems_sub as $bahanBakuId => $subtotal) {
-            $bahanBaku = BahanBaku::find($bahanBakuId);
-            $supplierId = $bahanBaku->users->id;
-            if (!isset($data_sub[$supplierId])) {
-                $data_sub[$supplierId] = $subtotal;
-            } else {
-                $data_sub[$supplierId] += $subtotal;
-            }
-        }
-
         $suplier = [];
-        for($i=0; $i < count($request->bahan_baku); $i++){
+        for ($i = 0; $i < count($request->bahan_baku); $i++) {
             $bahan_baku = BahanBaku::findOrFail($request->bahan_baku[$i]);
             $suplier[] = $bahan_baku->users->id;
+=======
+    $data_qty = [];
+    foreach ($selectedItems_qty as $bahanBakuId => $quantity) {
+        $bahanBaku = BahanBaku::find($bahanBakuId);
+        $data_qty[] = ['bahan_baku' => $bahanBakuId , 'quantity' => $quantity];
+    }
+
+    $data_sub = [];
+    foreach ($selectedItems_sub as $bahanBakuId => $subtotal) {
+        $bahanBaku = BahanBaku::find($bahanBakuId);
+        $supplierId = $bahanBaku->users->id;
+        if (!isset($data_sub[$supplierId])) {
+            $data_sub[$supplierId] = $subtotal;
+        } else {
+            $data_sub[$supplierId] += $subtotal;
+>>>>>>> e3e05f7ae74cbe2470e0e6b98cc049316c247229
         }
+    }
 
-        // Insert transaksi
-        $uniqueSuppliers = array_unique($suplier);
+    $suplier = [];
+    for($i=0; $i < count($request->bahan_baku); $i++){
+        $bahan_baku = BahanBaku::findOrFail($request->bahan_baku[$i]);
+        $suplier[] = $bahan_baku->users->id;
+    }
 
-        foreach ($uniqueSuppliers as $supplierId) {
-            $transaksi = new Transaksi();
-            $transaksi->tgl_pemesanan = date('Y-m-d');
-            $transaksi->jumlah_bayar = 0;
-            $transaksi->bukti_bayar = 0;
-            $transaksi->keterangan = '-';
-            $transaksi->total = $data_sub[$supplierId];
-            $transaksi->save();
+    // Insert transaksi
+    $uniqueSuppliers = array_unique($suplier);
 
-            // Insert detail transaksi berdasarkan bahan baku
-            for ($i = 0; $i < count($request->bahan_baku); $i++) {
-                $bahan_baku = BahanBaku::findOrFail($request->bahan_baku[$i]);
-                if ($bahan_baku->users->id == $supplierId) {
-                    $detailTransaksi = new DetailTransaksi();
-                    $detailTransaksi->transaksi_id = $transaksi->id;
-                    $detailTransaksi->bahanbaku_id = $bahan_baku->id;
-                    $detailTransaksi->jumlah = $data_qty[$i]['quantity'];
-                    $detailTransaksi->save();
-                }
+    foreach ($uniqueSuppliers as $supplierId) {
+        $transaksi = new Transaksi();
+        $transaksi->tgl_pemesanan = date('Y-m-d');
+        $transaksi->jumlah_bayar = 0;
+        $transaksi->bukti_bayar = 0;
+        $transaksi->keterangan = '-';
+        $transaksi->total = $data_sub[$supplierId];
+        $transaksi->save();
+
+        // Insert detail transaksi berdasarkan bahan baku
+        for ($i = 0; $i < count($request->bahan_baku); $i++) {
+            $bahan_baku = BahanBaku::findOrFail($request->bahan_baku[$i]);
+            if ($bahan_baku->users->id == $supplierId) {
+                $detailTransaksi = new DetailTransaksi();
+                $detailTransaksi->transaksi_id = $transaksi->id;
+                $detailTransaksi->bahanbaku_id = $bahan_baku->id;
+                $detailTransaksi->jumlah = $data_qty[$i]['quantity'];
+                $detailTransaksi->save();
             }
         }
-        foreach($selectedItems_cart as $cart_id){
-            $cart = Cart::findOrFail($cart_id);
-            $cart->delete();
-        }
-
-        return redirect()->route('get.transaksi')->with('status', 'Silahkan lakukan pembayaran');
-
+    }
+<<<<<<< HEAD
+=======
 }
 
+>>>>>>> e3e05f7ae74cbe2470e0e6b98cc049316c247229
 }
