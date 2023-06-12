@@ -102,6 +102,9 @@ class TransaksiController extends Controller
         foreach ($uniqueSuppliers as $supplierId) {
             $transaksi = new Transaksi();
             $transaksi->tgl_pemesanan = date('Y-m-d');
+            $transaksi->jumlah_bayar = 0;
+            $transaksi->bukti_bayar = 0;
+            $transaksi->keterangan = '-';
             $transaksi->total = $data_sub[$supplierId];
             $transaksi->save();
 
@@ -121,6 +124,7 @@ class TransaksiController extends Controller
             $cart = Cart::findOrFail($cart_id);
             $cart->delete();
         }
+
         return redirect()->route('get.transaksi')->with('status', 'Silahkan lakukan pembayaran');
 
 }
