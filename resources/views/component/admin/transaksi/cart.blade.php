@@ -133,7 +133,8 @@
                             $subtotal = $list->bahanBaku->harga * $list->jumlah;
                             $total += $list->bahanBaku->harga * $list->jumlah;
                         @endphp
-                        <input type="hidden" name="subtotal[{{ $list->bahanBaku->id }}]" value="{{ $subtotal }}">
+                        <input type="hidden" id="subtotal" name="subtotal[{{ $list->bahanBaku->id }}]"
+                            value="{{ $subtotal }}">
                     @empty
                         <div class="message">
                             <h3 class="text-center text-danger">Tidak ada Item</h3>
@@ -156,7 +157,6 @@
         var incrementButtons = document.querySelectorAll(".increment-button");
         var quantityInputs = document.querySelectorAll(".quantity");
         var cartTotalElement = document.querySelector(".cart-total");
-        var cartTotalInput = document.querySelector("#total");
 
         // Mengatur event listener untuk tombol pengurangan
         decrementButtons.forEach(function(button, index) {
@@ -191,10 +191,10 @@
             });
         });
 
-        // Mengupdate total harga di keranjang belanja
         function updateCartTotal() {
             var cartItems = document.querySelectorAll(".cart-item");
             var total = 0;
+            var subtotals = [];
 
             cartItems.forEach(function(item) {
                 var checkbox = item.querySelector('input[type="checkbox"]');
@@ -202,13 +202,24 @@
                     var priceElement = item.querySelector(".cart-item-price");
                     var price = parseFloat(priceElement.textContent.replace("Rp.", ""));
                     var quantity = parseInt(item.querySelector(".quantity").value);
-                    total += price * quantity;
+                    var subtotal = price * quantity;
+                    subtotals.push(subtotal); // Tambahkan subtotal ke dalam array subtotals
+                    total += subtotal;
+                } else {
+                    subtotals.push(0);
                 }
             });
 
             cartTotalElement.textContent = "Total: Rp. " + total;
-            cartTotalInput.value = total;
+
+            // Mengatur nilai subtotal pada input tersembunyi
+            var subtotalInputs = document.querySelectorAll('input[name^="subtotal"]');
+            for (var i = 0; i < subtotals.length; i++) {
+                subtotalInputs[i].value = subtotals[i];
+            }
         }
+
+
 
         // Mengatur event listener untuk setiap checkbox
         var checkboxes = document.querySelectorAll('input[type="checkbox"]');
