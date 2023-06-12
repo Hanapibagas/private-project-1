@@ -13,22 +13,24 @@ use Illuminate\Support\Facades\Auth;
 
 class TransaksiController extends Controller
 {
-    public function getBahanBaku(){
-        $data = BahanBaku::where('stok','>',0)->simplePaginate(12);
-        return view('component.admin.transaksi.bahanbaku',compact('data'));
+    public function getBahanBaku()
+    {
+        $data = BahanBaku::where('stok', '>', 0)->simplePaginate(12);
+        return view('component.admin.transaksi.bahanbaku', compact('data'));
     }
 
-    public function getCart(){
+    public function getCart()
+    {
         $data = Cart::all();
-        return view('component.admin.transaksi.cart',compact('data'));
+        return view('component.admin.transaksi.cart', compact('data'));
     }
 
-    public function storeCart(Request $request){
-        $duplicate = Cart::where('bahanbaku_id',$request->bahan_baku)->first();
+    public function storeCart(Request $request)
+    {
+        $duplicate = Cart::where('bahanbaku_id', $request->bahan_baku)->first();
 
-        if($duplicate)
-        {
-            return redirect()->back()->with('warning','Item sudah ada dalam keranjang');
+        if ($duplicate) {
+            return redirect()->back()->with('warning', 'Item sudah ada dalam keranjang');
         }
 
         $data = new Cart();
@@ -39,36 +41,36 @@ class TransaksiController extends Controller
         return redirect()->back()->with('status', 'Berhasil menambah item ke keranjang');
     }
 
-    public function deleteCart($id){
+    public function deleteCart($id)
+    {
         $data = Cart::findOrFail($id);
         $data->delete();
         return redirect()->back()->with('status', 'Berhasil menghapus item di keranjang');
     }
 
+    public function checkout(Request $request)
+    {
 
+        $bahanBakuIds = $request->input('bahan_baku');
+        $quantities = $request->input('quantity');
+        $total = $request->input('subtotal');
 
-    public function checkout(Request $request){
+        dd($total);
 
-    $bahanBakuIds = $request->input('bahan_baku');
-    $quantities = $request->input('quantity');
-    $total = $request->input('subtotal');
-
-    dd($total);
-
-    $selectedItems = [];
-    foreach ($bahanBakuIds as $bahanBakuId) {
-        if (isset($quantities[$bahanBakuId])) {
-            $selectedItems[$bahanBakuId] = $quantities[$bahanBakuId];
+        $selectedItems = [];
+        foreach ($bahanBakuIds as $bahanBakuId) {
+            if (isset($quantities[$bahanBakuId])) {
+                $selectedItems[$bahanBakuId] = $quantities[$bahanBakuId];
+            }
         }
-    }
 
-    $data = [];
-    foreach ($selectedItems as $bahanBakuId => $quantity) {
-        $bahanBaku = BahanBaku::find($bahanBakuId);
-        $data[] = ['bahan_baku' => $bahanBakuId , 'quantity' => $quantity];
-    }
+        $data = [];
+        foreach ($selectedItems as $bahanBakuId => $quantity) {
+            $bahanBaku = BahanBaku::find($bahanBakuId);
+            $data[] = ['bahan_baku' => $bahanBakuId, 'quantity' => $quantity];
+        }
         $suplier = [];
-        for($i=0; $i < count($request->bahan_baku); $i++){
+        for ($i = 0; $i < count($request->bahan_baku); $i++) {
             $bahan_baku = BahanBaku::findOrFail($request->bahan_baku[$i]);
             $suplier[] = $bahan_baku->users->id;
         }
@@ -97,10 +99,5 @@ class TransaksiController extends Controller
                 }
             }
         }
-
-
     }
-
-
-
 }

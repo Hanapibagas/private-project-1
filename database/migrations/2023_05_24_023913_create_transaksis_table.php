@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('tgl_pemesanan');
             $table->enum('status', ['proses', 'selesai']);
-            $table->integer('jumlah_bayar');
-            $table->integer('bukti_bayar');
-            $table->string('keterangan');
+            $table->integer('jumlah_bayar')->nullable();
+            $table->integer('bukti_bayar')->nullable();
+            $table->string('keterangan')->nullable();
             $table->integer('total');
             $table->timestamps();
         });
