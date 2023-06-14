@@ -41,6 +41,7 @@ Route::middleware('auth', 'checkroll:admin')->group(function () {
     Route::controller(TransaksiController::class)->group(function () {
         //get list transaksi
         Route::get('/list-transaksi',  'getTransaksi')->name('get.transaksi');
+        Route::get('/get-bukti-bayar/{id}',  'getBuktibayar')->name('get.buktibayar');
         //get bahan baku
         Route::get('/list-bahan-baku',  'getBahanBaku')->name('get.bahanbaku');
         //cart
@@ -49,6 +50,8 @@ Route::middleware('auth', 'checkroll:admin')->group(function () {
         Route::get('/delete-cart/{id}',  'deleteCart')->name('delete.cart');
         //checkout
         Route::post('/checkout',  'checkout')->name('checkout');
+        Route::post('/payment',  'payment')->name('payment');
+        Route::get('/print-nota/{id}',  'printNota')->name('print.nota');
     });
 });
 

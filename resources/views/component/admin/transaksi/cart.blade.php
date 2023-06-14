@@ -142,7 +142,7 @@
                             <h3 class="text-center text-danger">Tidak ada item dalam keranjang</h3>
                         </div>
                     @endforelse
-                    @if ($data->count() > 1)
+                    @if ($data->count() > 0)
                         <div class="cart-total">Total: Rp. {{ $total }}</div>
                         <button type="submit" class="btn btn-success" id="checkout-button" style="width:100%"
                             disabled>checkout</button>
