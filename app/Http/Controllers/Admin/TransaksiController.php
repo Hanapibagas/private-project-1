@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Cart;
 use App\Models\User;
+use PDF;
 use App\Models\BahanBaku;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 class TransaksiController extends Controller
 {
     public function getTransaksi(){
-        $data = Transaksi::simplePaginate(5);
+        $data = Transaksi::orderBy('created_at','desc')->simplePaginate(5);
         return view('component.admin.transaksi.list_transaksi',compact('data'));
     }
 
@@ -102,9 +103,6 @@ class TransaksiController extends Controller
         foreach ($uniqueSuppliers as $supplierId) {
             $transaksi = new Transaksi();
             $transaksi->tgl_pemesanan = date('Y-m-d');
-            $transaksi->jumlah_bayar = 0;
-            $transaksi->bukti_bayar = 0;
-            $transaksi->keterangan = '-';
             $transaksi->total = $data_sub[$supplierId];
             $transaksi->save();
 
@@ -126,7 +124,35 @@ class TransaksiController extends Controller
         }
 
         return redirect()->route('get.transaksi')->with('status', 'Silahkan lakukan pembayaran');
+}
 
+
+public function payment(Request $request){
+    $validatedData = $request->validate([
+        'bukti_bayar' => 'required',
+        'jumlah_bayar' => 'required'
+    ]);
+    if ($request->file('bukti_bayar')) {
+        $file = $request->file('bukti_bayar')->store('bukti-bayar', 'public');
+    }
+    $id = $request->id;
+    $transaksi = Transaksi::findOrFail($id);
+    $transaksi->jumlah_bayar = $request->jumlah_bayar;
+    $transaksi->bukti_bayar = $file;
+    $transaksi->save();
+    return redirect()->back()->with('status', 'Berhasil lakukan pembayaran');
+}
+
+public function getBuktiBayar($id){
+    $data = Transaksi::findOrFail($id);
+    return response()->json($data);
+}
+
+public function printNota($id){
+    $data = DetailTransaksi::where('transaksi_id',$id)->get();
+    $total = Transaksi::select('total')->findOrFail($id);
+    $pdf = PDF::loadView('component.admin.transaksi.nota_pdf',compact('data','total'));
+    return $pdf->stream();
 }
 
 }
