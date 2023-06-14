@@ -150,8 +150,8 @@ public function getBuktiBayar($id){
 
 public function printNota($id){
     $data = DetailTransaksi::where('transaksi_id',$id)->get();
-    $total = Transaksi::select('total')->findOrFail($id);
-    $pdf = PDF::loadView('component.admin.transaksi.nota_pdf',compact('data','total'));
+    $transaksi = Transaksi::select('tgl_pemesanan','total')->findOrFail($id);
+    $pdf = PDF::loadView('component.admin.transaksi.nota_pdf',compact('data','transaksi'));
     return $pdf->stream();
 }
 
