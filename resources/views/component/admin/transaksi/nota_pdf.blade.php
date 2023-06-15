@@ -56,7 +56,7 @@
 <body>
     <div class="container">
         <h3>NOTA PEMBELIAN</h3>
-
+        <span>{{ $transaksi->tgl_pemesanan }}</span><br>
         <table class="nota-table">
             <tr>
                 <th>Barang</th>
@@ -72,7 +72,7 @@
             @endforeach
         </table>
         <div class="total">
-            Total: Rp. {{ number_format($total->total) }}
+            Total: Rp. {{ number_format($transaksi->total) }}
         </div>
     </div>
 </body>
