@@ -8,6 +8,7 @@ use App\Http\Controllers\Suplier\DashboardController;
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Gudang\DashboardGudangController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Suplier\BahanKeluarController;
 use App\Http\Controllers\Suplier\TransaksiSuplierController;
 
 Route::get('/', function () {
@@ -18,6 +19,8 @@ Auth::routes();
 
 Route::middleware('auth', 'checkroll:suplier')->group(function () {
     Route::get('/dashboard-suplier', [DashboardController::class, 'index_suplier'])->name('index_suplier');
+    //
+    Route::get('/barang-keluar-suplier', [BahanKeluarController::class, 'getIndex'])->name('getIndexBarangKeluar');
     //
     Route::get('/transaksi', [TransaksiSuplierController::class, 'getTransaksi'])->name('get.transaksi.suplier');
     Route::put('/transaksi/{id}', [TransaksiSuplierController::class, 'getDetails'])->name('get.update.suplier');
