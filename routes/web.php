@@ -8,6 +8,7 @@ use App\Http\Controllers\Suplier\DashboardController;
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Gudang\DashboardGudangController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Suplier\TransaksiSuplierController;
 
 Route::get('/', function () {
     return view("auth.login");
@@ -17,6 +18,9 @@ Auth::routes();
 
 Route::middleware('auth', 'checkroll:suplier')->group(function () {
     Route::get('/dashboard-suplier', [DashboardController::class, 'index_suplier'])->name('index_suplier');
+    //
+    Route::get('/transaksi', [TransaksiSuplierController::class, 'getTransaksi'])->name('get.transaksi.suplier');
+    Route::put('/transaksi/{id}', [TransaksiSuplierController::class, 'getDetails'])->name('get.update.suplier');
     //
     Route::get('/bahan-baku-suplier', [BahanBakuController::class, 'index_bahan_baku_suplier'])->name('index_bahan_baku_suplier');
     Route::get('/bahan-baku-suplier/create', [BahanBakuController::class, 'create_bahan_baku_suplier'])->name('create_bahan_baku_suplier');

@@ -10,4 +10,4 @@
 <script src="{{ asset('assets/js/quill.min.js') }}"></script>
 <script src="{{ asset('assets/js/datatable.js') }}"></script>
 <script src="{{ asset('assets/js/Sortable.min.js') }}"></script>
-<script src="{{ asset('assets/js/main.js') }}"></script>
+{{-- <script src="{{ asset('assets/js/main.js') }}"></script> --}}

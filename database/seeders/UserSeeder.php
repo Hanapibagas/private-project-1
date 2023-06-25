@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             'email' => 'suplier@admin.com',
             'role' => 'suplier',
             'phone' => '123456789',
-            'avatar' => 'default.jpg',
+            'avatar' => 'default.jpg',  
             'password' => bcrypt('12345678')
         ]);
         User::create([

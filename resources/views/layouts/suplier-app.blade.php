@@ -10,6 +10,8 @@
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon" />
     <title>@yield('title') | </title>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css"
         integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
@@ -42,9 +44,9 @@
 
     </main>
 
+    @stack('js')
     @include('includes.suplier.script')
 
-    @stack('js')
 
 </body>
 

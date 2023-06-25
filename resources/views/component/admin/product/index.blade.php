@@ -1,101 +1,100 @@
 @extends('layouts.admin-app')
 
 @section('title')
-    Product
+Product
 @endsection
 
 @section('content')
-    @if (session('status'))
-        <script>
-            Swal.fire({
+@if (session('status'))
+<script>
+    Swal.fire({
                 icon: 'success',
                 title: 'Sukses!',
                 text: "{{ session('status') }}",
             });
-        </script>
-    @endif
+</script>
+@endif
 
-    <section class="table-components">
-        <div class="container-fluid">
-            <div class="title-wrapper pt-30">
-                <div class="row align-items-center">
-                    <div class="col-md-6">
-                        <div class="title mb-30">
-                            <h2>Data Product</h2>
-                        </div>
+<section class="table-components">
+    <div class="container-fluid">
+        <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="title mb-30">
+                        <h2>Data Product</h2>
                     </div>
-                    <div class="col-md-6">
-                        <div class="breadcrumb-wrapper mb-30">
-                            <nav aria-label="breadcrumb">
-                                <ul class="buttons-group">
-                                    <li class="breadcrumb-item">
-                                        <a href="{{ route('create-product') }}"
-                                            class="main-btn success-btn rounded-md btn-hover">+ Tambah Data</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="breadcrumb-wrapper mb-30">
+                        <nav aria-label="breadcrumb">
+                            <ul class="buttons-group">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ route('create-product') }}"
+                                        class="main-btn success-btn rounded-md btn-hover">+ Tambah Data</a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
-            <div class="tables-wrapper">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card-style mb-30">
-                            <div class="table-responsive">
-                                <table id="table" class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Nama</th>
-                                            <th>Harga</th>
-                                            <th>Satuan</th>
-                                            <th>Gambar</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($product as $data)
-                                            <tr>
-                                                <td>{{ $data->nama }}</td>
-                                                <td>{{ $data->harga }}</td>
-                                                <td>{{ $data->satuan }}</td>
-                                                <td>
-                                                    <img src="{{ Storage::url($data->foto) }}" alt=""
-                                                        style="width: 150px" class="img-thumbnail">
-                                                </td>
-                                                <td>
-                                                    <a href="{{ route('edit-product', $data->id) }}"
-                                                        class="btn btn-primary">
-                                                        <i class="lni lni-pencil" style="color: whitesmoke"></i>
-                                                    </a>
-                                                    <input type="hidden" class="delete_id" value="{{ $data->id }}">
-                                                    <form action="{{ route('delete-product', $data->id) }}" method="POST"
-                                                        class="d-inline">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button class="btn btn-danger btndelete">
-                                                            <i class="lni lni-trash-can"></i>
-                                                        </button>
-                                                    </form>
-                                                    </p>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+        </div>
+        <div class="tables-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card-style mb-30">
+                        <div class="table-responsive">
+                            <table id="table" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>Harga</th>
+                                        <th>Satuan</th>
+                                        <th>Gambar</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($product as $data)
+                                    <tr>
+                                        <td>{{ $data->nama }}</td>
+                                        <td>{{ $data->harga }}</td>
+                                        <td>{{ $data->satuan }}</td>
+                                        <td>
+                                            <img src="{{ Storage::url($data->foto) }}" alt="" style="width: 150px"
+                                                class="img-thumbnail">
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('edit-product', $data->id) }}" class="btn btn-primary">
+                                                <i class="lni lni-pencil" style="color: whitesmoke"></i>
+                                            </a>
+                                            <input type="hidden" class="delete_id" value="{{ $data->id }}">
+                                            <form action="{{ route('delete-product', $data->id) }}" method="POST"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-danger btndelete">
+                                                    <i class="lni lni-trash-can"></i>
+                                                </button>
+                                            </form>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 @endsection
 
 @push('js')
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
-        $(document).ready(function() {
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    $(document).ready(function() {
 
             $.ajaxSetup({
                 headers: {
@@ -140,10 +139,10 @@
             });
 
         });
-    </script>
-    <script>
-        const dataTable = new simpleDatatables.DataTable("#table", {
+</script>
+<script>
+    const dataTable = new simpleDatatables.DataTable("#table", {
             searchable: true,
         });
-    </script>
+</script>
 @endpush

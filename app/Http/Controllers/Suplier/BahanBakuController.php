@@ -12,7 +12,7 @@ class BahanBakuController extends Controller
 {
     public function index_bahan_baku_suplier()
     {
-        $bahanbaku = BahanBaku::all();
+        $bahanbaku = BahanBaku::where('user_id', Auth::user()->id)->get();
         return view('component.suplier.bahan-baku.index', compact('bahanbaku'));
     }
 

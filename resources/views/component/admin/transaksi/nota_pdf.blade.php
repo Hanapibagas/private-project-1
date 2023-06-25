@@ -64,11 +64,11 @@
                 <th>Harga</th>
             </tr>
             @foreach ($data as $value)
-                <tr>
-                    <td>{{ $value->bahanBaku->nama }}</td>
-                    <td>{{ $value->jumlah }}</td>
-                    <td>Rp. {{ number_format($value->bahanBaku->harga) }}</td>
-                </tr>
+            <tr>
+                <td>{{ $value->bahanBaku->nama }}</td>
+                <td>{{ $value->jumlah }}</td>
+                <td>Rp. {{ number_format($value->bahanBaku->harga) }}</td>
+            </tr>
             @endforeach
         </table>
         <div class="total">

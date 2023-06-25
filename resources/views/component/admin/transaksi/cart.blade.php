@@ -1,162 +1,157 @@
 @extends('layouts.admin-app')
 
 @section('title')
-    Keranjang
+Keranjang
 @endsection
 
 @push('cs')
-    <style>
-        /* CSS untuk tampilan keranjang belanja */
+<style>
+    /* CSS untuk tampilan keranjang belanja */
 
-        .cart {
-            background-color: #fff;
-            border-radius: 4px;
-            padding: 20px;
-        }
+    .cart {
+        background-color: #fff;
+        border-radius: 4px;
+        padding: 20px;
+    }
 
-        .cart-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-        }
+    .cart-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+    }
 
-        .cart-item img {
-            width: 70px;
-            height: 70px;
-            margin-right: 10px;
-        }
+    .cart-item img {
+        width: 70px;
+        height: 70px;
+        margin-right: 10px;
+    }
 
-        .cart-item-name {
-            flex: 1;
-        }
+    .cart-item-name {
+        flex: 1;
+    }
 
-        .cart-item-quantity {
-            display: flex;
-            align-items: center;
-        }
+    .cart-item-quantity {
+        display: flex;
+        align-items: center;
+    }
 
-        .cart-item-quantity input {
-            width: 50px;
-            text-align: center;
-            margin: 0 5px;
-        }
+    .cart-item-quantity input {
+        width: 50px;
+        text-align: center;
+        margin: 0 5px;
+    }
 
-        .cart-item-price {
-            width: 70px;
-            text-align: right;
-        }
+    .cart-item-price {
+        width: 70px;
+        text-align: right;
+    }
 
-        .cart-total {
-            text-align: right;
-            font-weight: bold;
-            margin-top: 10px;
-            margin-right: 50px;
-        }
+    .cart-total {
+        text-align: right;
+        font-weight: bold;
+        margin-top: 10px;
+        margin-right: 50px;
+    }
 
-        .cart-button {
-            display: block;
-            margin-top: 10px;
-            padding: 10px 20px;
-            background-color: #4caf50;
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            cursor: pointer;
-            border: none;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
+    .cart-button {
+        display: block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
 
-        .cart-button:hover {
-            background-color: #45a049;
-        }
+    .cart-button:hover {
+        background-color: #45a049;
+    }
 
-        .increment-button {
-            width: 30px;
-            background-color: green;
-            color: white;
-        }
+    .increment-button {
+        width: 30px;
+        background-color: green;
+        color: white;
+    }
 
-        .decrement-button {
-            width: 30px;
-            background-color: red;
-            color: white;
-        }
-    </style>
+    .decrement-button {
+        width: 30px;
+        background-color: red;
+        color: white;
+    }
+</style>
 @endpush
 
 @section('content')
-    @if (session('status'))
-        <script>
-            Swal.fire({
+@if (session('status'))
+<script>
+    Swal.fire({
                 icon: 'success',
                 title: 'Sukses!',
                 text: "{{ session('status') }}",
             });
-        </script>
-    @endif
-    <section class="table-components">
-        <div class="container-fluid">
-            <div class="cart mt-5">
+</script>
+@endif
+<section class="table-components">
+    <div class="container-fluid">
+        <div class="cart mt-5">
+            @php
+            $total = 0;
+            @endphp
+            <form action="{{ route('checkout') }}" method="post">
+                @csrf
+                @forelse ($data as $list)
+                <div class="cart-item">
+                    <input type="checkbox" id="vehicle1" name="bahan_baku[]" value="{{ $list->bahanBaku->id }}">
+                    <img src="{{ asset('storage/bahan-baku-suplier/' . $list->bahanBaku->gambar) }}" alt="Product 1" />
+                    <div class="cart-item-name">
+                        {{ $list->bahanBaku->nama }},
+                        <div class="suplier" style="font-size: 12px">
+                            Suplier : {{ $list->bahanBaku->users->name }}
+                        </div>
+                    </div>
+                    <div class="cart-item-quantity">
+                        <button type="button" class="decrement-button">-</button>
+                        <input class="quantity" type="number" value="{{ $list->jumlah }}" min="1"
+                            max="{{ $list->bahanBaku->stok }}" required name="quantity[{{ $list->bahanBaku->id }}]" />
+                        <button type="button" class="increment-button">+</button>
+                    </div>
+                    <div class="cart-item-price mr-5">Rp.{{ $list->bahanBaku->harga }}</div>
+                    <a href="{{ route('delete.cart', $list->id) }}" class="text-danger ml-5 btn btn-warning py-0 px-2">
+                        <strong>x</strong>
+                    </a>
+                </div>
                 @php
-                    $total = 0;
+                $subtotal = $list->bahanBaku->harga * $list->jumlah;
+                $total += $list->bahanBaku->harga * $list->jumlah;
                 @endphp
-                <form action="{{ route('checkout') }}" method="post">
-                    @csrf
-                    @forelse ($data as $list)
-                        <div class="cart-item">
-                            <input type="checkbox" id="vehicle1" name="bahan_baku[]" value="{{ $list->bahanBaku->id }}">
-                            <img src="{{ asset('storage/bahan-baku-suplier/' . $list->bahanBaku->gambar) }}"
-                                alt="Product 1" />
-                            <div class="cart-item-name">
-                                {{ $list->bahanBaku->nama }},
-                                <div class="suplier" style="font-size: 12px">
-                                    Suplier : {{ $list->bahanBaku->users->name }}
-                                </div>
-                            </div>
-                            <div class="cart-item-quantity">
-                                <button type="button" class="decrement-button">-</button>
-                                <input class="quantity" type="number" value="{{ $list->jumlah }}" min="1"
-                                    max="{{ $list->bahanBaku->stok }}" required
-                                    name="quantity[{{ $list->bahanBaku->id }}]" />
-                                <button type="button" class="increment-button">+</button>
-                            </div>
-                            <div class="cart-item-price mr-5">Rp.{{ $list->bahanBaku->harga }}</div>
-                            <a href="{{ route('delete.cart', $list->id) }}"
-                                class="text-danger ml-5 btn btn-warning py-0 px-2">
-                                <strong>x</strong>
-                            </a>
-                        </div>
-                        @php
-                            $subtotal = $list->bahanBaku->harga * $list->jumlah;
-                            $total += $list->bahanBaku->harga * $list->jumlah;
-                        @endphp
-                        <input type="hidden" id="subtotal" name="subtotal[{{ $list->bahanBaku->id }}]"
-                            value="{{ $subtotal }}">
-                        <input type="hidden" id="cart_id" name="cart_id[{{ $list->bahanBaku->id }}]"
-                            value="{{ $list->id }}">
-                    @empty
-                        <div class="message p-5">
-                            <h3 class="text-center text-danger">Tidak ada item dalam keranjang</h3>
-                        </div>
-                    @endforelse
-                    @if ($data->count() > 0)
-                        <div class="cart-total">Total: Rp. {{ $total }}</div>
-                        <button type="submit" class="btn btn-success" id="checkout-button" style="width:100%"
-                            disabled>checkout</button>
-                    @endif
-                </form>
-            </div>
+                <input type="hidden" id="subtotal" name="subtotal[{{ $list->bahanBaku->id }}]" value="{{ $subtotal }}">
+                <input type="hidden" id="cart_id" name="cart_id[{{ $list->bahanBaku->id }}]" value="{{ $list->id }}">
+                @empty
+                <div class="message p-5">
+                    <h3 class="text-center text-danger">Tidak ada item dalam keranjang</h3>
+                </div>
+                @endforelse
+                @if ($data->count() > 0)
+                <div class="cart-total">Total: Rp. {{ $total }}</div>
+                <button type="submit" class="btn btn-success" id="checkout-button" style="width:100%"
+                    disabled>checkout</button>
+                @endif
+            </form>
         </div>
-    </section>
+    </div>
+</section>
 @endsection
 
 @push('js')
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
-        // JavaScript untuk mengatur perilaku keranjang belanja
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    // JavaScript untuk mengatur perilaku keranjang belanja
         var decrementButtons = document.querySelectorAll(".decrement-button");
         var incrementButtons = document.querySelectorAll(".increment-button");
         var quantityInputs = document.querySelectorAll(".quantity");
@@ -250,5 +245,5 @@
                 updateCartTotal();
             });
         });
-    </script>
+</script>
 @endpush

@@ -111,8 +111,6 @@ Bahan Baku
 @endsection
 
 @push('js')
-<script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
-<script>
-    CKEDITOR.replace('deskripsi');
-</script>
+<script src="{{ url('assets/js/cleave.min.js') }}"></script>
+<script src="{{ url('assets/js/my_cleave.js') }}"></script>
 @endpush

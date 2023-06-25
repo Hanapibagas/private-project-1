@@ -29,9 +29,10 @@
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="profile-info">
                                 <div class="info">
-                                    <h6>John Doe</h6>
+                                    <h6>{{ Auth::user()->name }}</h6>
                                     <div class="image">
-                                        <img src="{{ asset('assets/images/profile/profile-image.png') }}" alt="" />
+                                        <img src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}" width="40"
+                                            class="rounded-circle" />
                                         <span class="status"></span>
                                     </div>
                                 </div>

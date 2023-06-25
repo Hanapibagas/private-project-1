@@ -15,11 +15,13 @@ class DetailTransaksi extends Model
         'jumlah',
     ];
 
-    public function transaksi(){
+    public function transaksi()
+    {
         return $this->belongsto(Transaksi::class, 'transaksi_id');
     }
 
-    public function bahanBaku(){
+    public function bahanBaku()
+    {
         return $this->belongsTo(BahanBaku::class, 'bahanbaku_id');
     }
 }
