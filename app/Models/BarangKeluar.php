@@ -14,4 +14,14 @@ class BarangKeluar extends Model
         'bahanbaku_id',
         'transaksi_id',
     ];
+
+    public function bahanBaku()
+    {
+        return $this->belongsTo(bahanBaku::class, 'bahanbaku_id');
+    }
+
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
 }

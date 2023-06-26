@@ -37,7 +37,7 @@
                     </span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {{ request()->is('transaksi') ? 'active' : '' }}">
                 <a href="{{ route('get.transaksi.suplier') }}">
                     <span class="icon">
                         <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -50,7 +50,7 @@
                     </span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {{ request()->is('barang-keluar-suplier') ? 'active' : '' }}">
                 <a href="{{ route('getIndexBarangKeluar') }}">
                     <span class="icon">
                         <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">

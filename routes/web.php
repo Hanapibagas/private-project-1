@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BarangMasukAdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TransaksiController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\Suplier\DashboardController;
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Gudang\DashboardGudangController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Gudang\TransaksiGudangController;
 use App\Http\Controllers\Suplier\BahanKeluarController;
 use App\Http\Controllers\Suplier\TransaksiSuplierController;
 
@@ -35,7 +37,9 @@ Route::middleware('auth', 'checkroll:suplier')->group(function () {
 
 Route::middleware('auth', 'checkroll:admin')->group(function () {
     Route::get('/dashboard-admin', [DashboardAdminController::class, 'dashboard_admin'])->name('dashboard-admin');
-
+    //
+    Route::get('barang-masuk-admin', [BarangMasukAdminController::class, 'getIndex'])->name('getIndexBarangMasuk');
+    //
     Route::controller(AdminProductController::class)->group(function () {
         Route::get('/product',  'indexProduct')->name('index-product');
         Route::get('/product/create',  'createProduct')->name('create-product');
@@ -64,4 +68,7 @@ Route::middleware('auth', 'checkroll:admin')->group(function () {
 
 Route::middleware('auth', 'checkroll:gudang')->group(function () {
     Route::get('/dashboard-gudang', [DashboardGudangController::class, 'dashboard_gudang'])->name('dashboard_gudang');
+    //
+    Route::get('/rekap-transaksi', [TransaksiGudangController::class, 'getIndex'])->name('getIndexRekapTransaksi');
+    Route::get('/rekap-transaksi/exportPDF', [TransaksiGudangController::class, 'getPrintToPDF'])->name('getPrintToPDF');
 });

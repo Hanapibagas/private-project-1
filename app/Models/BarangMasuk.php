@@ -14,4 +14,9 @@ class BarangMasuk extends Model
         'bahanbaku_id',
         'transaksi_id',
     ];
+
+    public function bahanBaku()
+    {
+        return $this->belongsTo(bahanBaku::class, 'bahanbaku_id');
+    }
 }

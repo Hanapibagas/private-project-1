@@ -62,6 +62,6 @@ class TransaksiSuplierController extends Controller
             ]);
         }
 
-        // return view('component.suplier.transaksi.index', compact('data'));
+        return redirect()->route('get.transaksi.suplier')->with('status', 'Selamat data transaksi berhasil diperbarui');
     }
 }

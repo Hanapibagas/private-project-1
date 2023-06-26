@@ -1,7 +1,7 @@
-@extends('layouts.suplier-app')
+@extends('layouts.admin-app')
 
 @section('title')
-Barang Keluar
+Barang Masuk
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@ Barang Keluar
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div class="title mb-30">
-                        <h2>Data Barang Keluar</h2>
+                        <h2>Data Barang Masuk</h2>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@ Barang Keluar
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ( $bahankeluar as $data )
+                                    @foreach ( $data as $data )
                                     <tr>
                                         <td>{{ $data->tanggal }}</td>
                                         <td>{{ $data->bahanBaku->nama }}</td>

@@ -1,14 +1,14 @@
 <div class="sidebar-nav-wrapper">
     <div class="navbar-logo">
         <a href="">
-            <img src="{{ asset('assets/frontend/img/logo.png') }}" style="width: 30px" alt="logo" />
-            <h3 style="font-size: 18px; margin-top: 10px">Dashboard Ketenagakerjaan {{ Auth::user()->role }}</h3>
+            <img src="{{ asset('assets/images/favicon.svg') }}" style="width: 30px" alt="logo" />
+            <h3 style="font-size: 18px; margin-top: 10px">Dashboard {{ Auth::user()->role }}</h3>
         </a>
     </div>
     <nav class="sidebar-nav">
         <ul>
-            <li class="nav-item {{ request()->is('admin-super') ? 'active' : '' }}">
-                <a href="">
+            <li class="nav-item {{ request()->is('dashboard-gudang') ? 'active' : '' }}">
+                <a href="{{ route('dashboard_gudang') }}">
                     <span class="icon">
                         <svg width="22" height="22" viewBox="0 0 22 22">
                             <path
@@ -24,8 +24,8 @@
                 <hr />
             </span>
             <li
-                class="nav-item {{ request()->is('product-suplier') || request()->is('product-suplier/create') || request()->is('product-suplier/edit/*') ? 'active' : '' }}">
-                <a href="">
+                class="nav-item {{ request()->is('rekap-transaksi') || request()->is('product-suplier/create') || request()->is('product-suplier/edit/*') ? 'active' : '' }}">
+                <a href="{{ route('getIndexRekapTransaksi') }}">
                     <span class="icon">
                         <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -33,7 +33,7 @@
                         </svg>
                     </span>
                     <span class="text">
-                        Product
+                        Details Transaksi
                     </span>
                 </a>
             </li>
