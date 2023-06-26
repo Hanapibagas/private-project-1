@@ -23,7 +23,7 @@ Dashboard
                 </div>
                 <div class="content">
                     <h6 class="mb-10">Transaksi Pending</h6>
-                    <h3 class="text-bold mb-10">$74,567</h3>
+                    <h3 class="text-bold mb-10">{{ $pending }}</h3>
                 </div>
             </div>
         </div>
@@ -34,7 +34,18 @@ Dashboard
                 </div>
                 <div class="content">
                     <h6 class="mb-10">Transaksi Sukses</h6>
-                    <h3 class="text-bold mb-10">$24,567</h3>
+                    <h3 class="text-bold mb-10">{{ $selesai }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-sm-6">
+            <div class="icon-card mb-30">
+                <div class="icon primary">
+                    <i class="lni lni-arrow-down"></i>
+                </div>
+                <div class="content">
+                    <h6 class="mb-10">Barang Masuk</h6>
+                    <h3 class="text-bold mb-10">{{ $barangmasuk }}</h3>
                 </div>
             </div>
         </div>
