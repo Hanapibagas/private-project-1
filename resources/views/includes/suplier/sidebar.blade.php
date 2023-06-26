@@ -7,8 +7,8 @@
     </div>
     <nav class="sidebar-nav">
         <ul>
-            <li class="nav-item {{ request()->is('admin-super') ? 'active' : '' }}">
-                <a href="">
+            <li class="nav-item {{ request()->is('dashboard-suplier') ? 'active' : '' }}">
+                <a href="{{ route('index_suplier') }}">
                     <span class="icon">
                         <svg width="22" height="22" viewBox="0 0 22 22">
                             <path
