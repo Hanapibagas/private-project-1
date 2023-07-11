@@ -49,6 +49,7 @@ Product
                                         <th>Nama</th>
                                         <th>Harga</th>
                                         <th>Satuan</th>
+                                        <th>Tanggal pembuatan</th>
                                         <th>Gambar</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -57,8 +58,9 @@ Product
                                     @foreach ($product as $data)
                                     <tr>
                                         <td>{{ $data->nama }}</td>
-                                        <td>{{ $data->harga }}</td>
+                                        <td>Rp.{{ number_format($data->harga) }}</td>
                                         <td>{{ $data->satuan }}</td>
+                                        <td>{{ $data->tanggal }}</td>
                                         <td>
                                             <img src="{{ Storage::url($data->foto) }}" alt="" style="width: 150px"
                                                 class="img-thumbnail">

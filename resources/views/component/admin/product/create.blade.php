@@ -76,8 +76,25 @@ Product
                                 </div>
                                 <div class="col-12">
                                     <div class="input-style-1">
+                                        <label>Tanggal pembuatan</label>
+                                        <input type="date" class="@error('tanggal') is-invalid @enderror" name="tanggal"
+                                            placeholder="Masukkan Tanggal" />
+                                        @error('tanggal')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="input-style-1">
                                         <label>Gambar</label>
-                                        <input name="foto" type="file" />
+                                        <input name="foto" type="file" class="@error('foto') is-invalid @enderror" />
+                                        @error('foto')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-12">

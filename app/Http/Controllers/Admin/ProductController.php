@@ -21,15 +21,32 @@ class ProductController extends Controller
         return view('component.admin.product.create');
     }
 
-    public function storeProduct(ProductFormRequest $request)
+    public function storeProduct(Request $request)
     {
-        $validatedData = $request->validated();
+        $message = [
+            'required' => 'Mohon maaf anda melewati form ini'
+        ];
+
+        $this->validate($request, [
+            'nama' => 'required',
+            'tanggal' => 'required',
+            'foto' => 'required',
+            'harga' => 'required',
+            'satuan' => 'required',
+        ], $message);
+
         if ($request->file('foto')) {
             $file = $request->file('foto')->store('product-admin', 'public');
         }
-        $validatedData['foto'] = $file;
-        Product::create($validatedData);
-        // dd($validatedData);
+
+        Product::create([
+            'nama' => $request->input('nama'),
+            'tanggal' => $request->input('tanggal'),
+            'nama' => $request->input('nama'),
+            'nama' => $request->input('nama'),
+            'nama' => $request->input('nama'),
+        ]);
+
         return redirect()->route('index-product')->with('status', 'Selamat data product berhasil ditambahkan');
     }
 

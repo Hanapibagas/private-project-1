@@ -7,8 +7,11 @@ use App\Http\Controllers\Admin\TransaksiController;
 use App\Http\Controllers\Suplier\BahanBakuController;
 use App\Http\Controllers\Suplier\DashboardController;
 use App\Http\Controllers\Admin\DashboardAdminController;
+use App\Http\Controllers\Admin\laporanController;
 use App\Http\Controllers\Gudang\DashboardGudangController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Gudang\BahanBakuLayakController;
+use App\Http\Controllers\Gudang\ProduksiController;
 use App\Http\Controllers\Gudang\TransaksiGudangController;
 use App\Http\Controllers\Suplier\BahanKeluarController;
 use App\Http\Controllers\Suplier\TransaksiSuplierController;
@@ -37,6 +40,8 @@ Route::middleware('auth', 'checkroll:suplier')->group(function () {
 
 Route::middleware('auth', 'checkroll:admin')->group(function () {
     Route::get('/dashboard-admin', [DashboardAdminController::class, 'dashboard_admin'])->name('dashboard-admin');
+    //
+    Route::get('/laporan', [laporanController::class, 'getIndex'])->name('get.IndexLaporanAdmin');
     //
     Route::get('barang-masuk-admin', [BarangMasukAdminController::class, 'getIndex'])->name('getIndexBarangMasuk');
     //
@@ -68,6 +73,14 @@ Route::middleware('auth', 'checkroll:admin')->group(function () {
 
 Route::middleware('auth', 'checkroll:gudang')->group(function () {
     Route::get('/dashboard-gudang', [DashboardGudangController::class, 'dashboard_gudang'])->name('dashboard_gudang');
+    //
+    Route::get('/product-produksi', [ProduksiController::class, 'getIndex'])->name('get.IndexProduct');
+    //
+    Route::get('/layak-produksi', [BahanBakuLayakController::class, 'getIndex'])->name('get.IndexLayakProduksi');
+    Route::get('/layak-produksi/create', [BahanBakuLayakController::class, 'getCreate'])->name('get.CreateLayakProduksi');
+    Route::post('/layak-produksi/post', [BahanBakuLayakController::class, 'getStore'])->name('get.PostLayakProduct');
+    Route::put('/layak-produksi/update/{id}', [BahanBakuLayakController::class, 'getUpdate'])->name('get.UpdateLayakProduct');
+    Route::delete('/layak-produksi/delete/{id}', [BahanBakuLayakController::class, 'getDestroy'])->name('get.Destroy');
     //
     Route::get('/rekap-transaksi', [TransaksiGudangController::class, 'getIndex'])->name('getIndexRekapTransaksi');
     Route::get('/rekap-transaksi/exportPDF', [TransaksiGudangController::class, 'getPrintToPDF'])->name('getPrintToPDF');

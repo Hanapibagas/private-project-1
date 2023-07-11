@@ -5,15 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class ProductLayak extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'nama',
-        'tanggal',
-        'expired',
-        'foto',
-        'harga',
-        'satuan',
+        'nama_product', 'keterangan'
     ];
 }
