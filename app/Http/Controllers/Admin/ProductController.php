@@ -42,9 +42,9 @@ class ProductController extends Controller
         Product::create([
             'nama' => $request->input('nama'),
             'tanggal' => $request->input('tanggal'),
-            'nama' => $request->input('nama'),
-            'nama' => $request->input('nama'),
-            'nama' => $request->input('nama'),
+            'foto' => $file,
+            'harga' => $request->input('harga'),
+            'satuan' => $request->input('satuan'),
         ]);
 
         return redirect()->route('index-product')->with('status', 'Selamat data product berhasil ditambahkan');
@@ -56,7 +56,7 @@ class ProductController extends Controller
         return view('component.admin.product.update', compact('product'));
     }
 
-    public function updateProduct(ProductFormRequest $request, $id)
+    public function updateProduct(Request $request, $id)
     {
         $product = Product::where('id', $id)->first();
         $validatedData = $request->validated();

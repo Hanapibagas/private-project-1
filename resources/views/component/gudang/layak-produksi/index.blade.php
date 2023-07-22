@@ -65,7 +65,7 @@ Product Expired
                                                 class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="btn btn-danger btndelete">
+                                                <button class="btn btn-danger delete-btn" data-id="{{ $data->id }}">
                                                     <i class="lni lni-trash-can"></i>
                                                 </button>
                                             </form>
@@ -169,50 +169,6 @@ Product Expired
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $('.btndelete').click(function(e) {
-            e.preventDefault();
-
-            var deleteid = $(this).closest("tr").find('.delete_id').val();
-
-            swal({
-                title: "Apakah anda yakin?",
-                text: "Anda tidak dapat memulihkan data ini lagi!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            }).then((willDelete) => {
-                if (willDelete) {
-                    var data = {
-                        "_token": $('input[name=_token]').val(),
-                        'id': deleteid,
-                    };
-                    $.ajax({
-                        type: "DELETE",
-                        url: '/product/delete/' + deleteid,
-                        data: data,
-                        success: function(response) {
-                            swal(response.status, {
-                                icon: "success",
-                            }).then((result) => {
-                                location.reload();
-                            });
-                        }
-                    });
-                }
-            });
-        });
-    });
-</script>
 <script>
     const dataTable = new simpleDatatables.DataTable("#table", {
         searchable: true,

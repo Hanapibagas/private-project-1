@@ -75,6 +75,9 @@ Route::middleware('auth', 'checkroll:gudang')->group(function () {
     Route::get('/dashboard-gudang', [DashboardGudangController::class, 'dashboard_gudang'])->name('dashboard_gudang');
     //
     Route::get('/product-produksi', [ProduksiController::class, 'getIndex'])->name('get.IndexProduct');
+    Route::post('/product-produksi/post', [ProduksiController::class, 'getStore'])->name('get.StoreProductExpired');
+    Route::put('/product-produksi/update/{id}', [ProduksiController::class, 'getUpdate'])->name('get.UpdateProductExpired');
+    Route::delete('/product-produksi/delete/{id}', [ProduksiController::class, 'getDestroy'])->name('get.DeleteProductExpired');
     //
     Route::get('/layak-produksi', [BahanBakuLayakController::class, 'getIndex'])->name('get.IndexLayakProduksi');
     Route::get('/layak-produksi/create', [BahanBakuLayakController::class, 'getCreate'])->name('get.CreateLayakProduksi');

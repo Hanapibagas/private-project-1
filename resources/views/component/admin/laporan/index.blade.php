@@ -25,13 +25,17 @@ Product Expired
                                 <thead>
                                     <tr>
                                         <th>Nama product</th>
-                                        <th>Keterangan</th>
+                                        <th>Tanggal pembuatan</th>
+                                        <th>Jumlah barang</th>
+                                        <th>keterangan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($layak as $data)
                                     <tr>
-                                        <td>{{ $data->nama_product }}</td>
+                                        <td>{{ $data->nama }}</td>
+                                        <td>{{ $data->total }}</td>
+                                        <td>{{ $data->jumlah }}</td>
                                         <td>{{ $data->keterangan }}</td>
                                     </tr>
                                     @endforeach
